@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Semanal - Contele Teams</title>
+    <style>
+        :root {
+            --primary-blue: #153e63;
+            --secondary-blue: #0056b3;
+            --dark-fix: #0a2540;
+            --success-green: #28a745;
+            --adaptation-gray: #6c757d;
+            --warning-orange: #f39c12;
+            --danger-red: #c0392b;
+            --light-blue: #f0f4f8;
+            --text-dark: #333;
+            --white: #ffffff;
+            --border-gray: #e9ecef;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #f4f7f9; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        .presentation-container { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .slider-wrapper { width: 100%; max-width: 1200px; height: 85vh; background: var(--white); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); overflow: hidden; position: relative; border: 1px solid var(--border-gray); }
+        .slider { display: flex; height: 100%; transition: transform 0.5s ease-in-out; }
+        
+        .slide { min-width: 100%; height: 100%; padding: 60px 80px; display: flex; flex-direction: column; position: relative; }
+
+        .slide.cover { background: linear-gradient(135deg, var(--primary-blue) 0%, #0a2540 100%); color: white; justify-content: center; align-items: center; text-align: center; }
+        .slide.transition-part { background: var(--secondary-blue); color: white; justify-content: center; align-items: center; text-align: center; }
+
+        .tag-container { position: absolute; top: 40px; left: 60px; }
+        .type-tag { display: inline-block; padding: 6px 14px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; color: white; letter-spacing: 0.5px; }
+        .tag-melhoria { background: var(--success-green); }
+        .tag-correcao { background: var(--dark-fix); }
+        .tag-adaptacao { background: var(--adaptation-gray); }
+        .tag-metric { background: var(--primary-blue); }
+        .tag-alert { background: var(--danger-red); }
+
+        .release-title { color: var(--primary-blue); font-size: 2.2rem; margin-top: 40px; margin-bottom: 30px; font-weight: 700; }
+        .release-description { color: #555; font-size: 1.3rem; line-height: 1.6; max-width: 900px; }
+
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 40px 0; width: 100%; }
+        .metric-card { background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 5px solid var(--primary-blue); text-align: center; }
+        .metric-value { font-size: 3.5rem; font-weight: bold; color: var(--primary-blue); }
+        .metric-label { font-size: 0.9rem; color: #666; text-transform: uppercase; font-weight: bold; margin-top: 10px; }
+
+        .chart-container { flex: 1; display: flex; justify-content: center; align-items: center; width: 100%; margin-top: -20px; }
+        .chart-svg { width: 95%; height: 480px; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.05)); }
+        .chart-line { stroke: var(--secondary-blue); stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .chart-point { fill: var(--secondary-blue); stroke: #fff; stroke-width: 4; }
+        .chart-value-text { font-size: 24px; font-weight: 800; fill: var(--primary-blue); }
+        .chart-label-text { font-size: 16px; font-weight: 600; fill: #777; }
+        .chart-baseline { stroke: #e0e0e0; stroke-width: 2; }
+
+        .status-box { background: #fff4e5; border-left: 6px solid var(--warning-orange); padding: 30px; border-radius: 4px; margin-top: 25px; font-size: 1.2rem; }
+
+        .release-footer { position: absolute; bottom: 40px; left: 60px; right: 60px; padding-top: 20px; border-top: 2px solid #eee; display: flex; justify-content: space-between; font-family: 'Segoe UI', sans-serif; color: #999; font-size: 0.85rem; }
+
+        .controls-container { height: 60px; display: flex; justify-content: center; align-items: center; background: #0a2540; width: 100%; gap: 20px; }
+        .btn { background: #153e63; color: white; border: none; padding: 8px 25px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .btn:hover { background: #1d568a; }
+        .counter { color: white; font-weight: bold; font-size: 0.9rem; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; }
+
+        strong { font-weight: bold; color: inherit; }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <div class="slider-wrapper">
+            <div id="slider" class="slider">
+                
+                <div class="slide cover">
+                    <img src="https://contele.com.br/wp-content/uploads/2024/08/Contele-teams-1024x425.png" style="max-width: 350px; filter: brightness(0) invert(1);" alt="Logo">
+                    <h1 style="font-size: 3.5rem; margin-top: 25px;">Release Semanal</h1>
+                    <p style="font-size: 1.6rem; opacity: 0.8;">22 de Janeiro a 29 de Janeiro, 2026</p>
+                    <div style="margin-top: 40px; padding: 12px 30px; border: 2px solid rgba(255,255,255,0.3); border-radius: 4px; font-weight: bold; letter-spacing: 1px;">
+                        PARTE 1: NOVIDADES E LANÇAMENTOS
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-melhoria">Melhoria</span></div>
+                    <h2 class="release-title">Otimização de Performance: Formulários</h2>
+                    <p class="release-description">Melhoramos significativamente a <strong>velocidade de carregamento e exibição dos formulários</strong>, evitando lentidão e falhas para usuários com grande volume de dados.</p>
+                    <div class="release-footer"><span>#5215 | dev: @vitor-manoel</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-melhoria">Melhoria</span></div>
+                    <h2 class="release-title">Controle de Edição de Check-out</h2>
+                    <p class="release-description">Gestores agora podem habilitar ou desabilitar a <strong>permissão para que colaboradores editem o horário de check-out</strong>, oferecendo mais controle sobre o registro de ponto da equipe.</p>
+                    <div class="release-footer"><span>#5157 | dev: @vitor-manoel</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-melhoria">Melhoria</span></div>
+                    <h2 class="release-title">Lembrete de Check-out Pendente</h2>
+                    <p class="release-description">O modal de lembrete de check-out pendente agora possui um botão <strong>'Ignorar'</strong>, permitindo que o usuário continue seu fluxo no aplicativo sem ser bloqueado.</p>
+                    <div class="release-footer"><span>#5158 | dev: @Idevilson</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-melhoria">Melhoria</span></div>
+                    <h2 class="release-title">Exclusão de Locais com Produtos</h2>
+                    <p class="release-description">Ao excluir um local, um novo aviso permite decidir o que fazer com os <strong>itens vinculados</strong>: devolvê-los ao estoque, excluí-los ou mantê-los, garantindo integridade do inventário.</p>
+                    <div class="release-footer"><span>#5415 | dev: @NataliaCristine</span><span>27/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-melhoria">Melhoria</span></div>
+                    <h2 class="release-title">Estabilização Geral Contele Teams</h2>
+                    <p class="release-description">Implementamos uma correção crítica para resolver a <strong>sobrecarga no sistema</strong>, garantindo estabilidade no acesso ao app, agendamentos e relatórios.</p>
+                    <div class="release-footer"><span>#5505 | dev: @pjpimentel, @vitor-manoel</span><span>28/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-adaptacao">Adaptação</span></div>
+                    <h2 class="release-title">Normalização de Login (Case-Insensitive)</h2>
+                    <p class="release-description">Corrigida a falha onde o sistema diferenciava letras maiúsculas de minúsculas no campo de e-mail. Agora, usuários com <strong>iniciais em maiúsculo</strong> não encontrarão mais erros de acesso.</p>
+                    <div class="release-footer"><span>#Tickets 26/01 | dev: @ti-teams</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Impressão de Ordem de Serviço</h2>
+                    <p class="release-description">Ajustamos a prévia de impressão das OS, garantindo que o conteúdo seja exibido de forma <strong>clara e sem elementos sobrepostos</strong>.</p>
+                    <div class="release-footer"><span>#5410 | dev: @NataliaCristine</span><span>22/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Consistência na Reatribuição de Visitas</h2>
+                    <p class="release-description">Corrigida falha na reatribuição, assegurando que cada técnico visualize apenas as <strong>tarefas corretamente designadas</strong>.</p>
+                    <div class="release-footer"><span>#5402 | dev: @marcos-resende-contele</span><span>22/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Sincronização de Instruções de Locais</h2>
+                    <p class="release-description">Alterações nas instruções de um local feitas no app agora são <strong>refletidas corretamente na plataforma web</strong>.</p>
+                    <div class="release-footer"><span>#5396 | dev: @NataliaCristine</span><span>23/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Sincronização Incremental do App</h2>
+                    <p class="release-description">Corrigimos downloads completos desnecessários após envio de dados, reduzindo o <strong>consumo de dados móveis</strong> e sobrecarga.</p>
+                    <div class="release-footer"><span>#5552 | dev: @Idevilson</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Endereços com Nomes Numéricos</h2>
+                    <p class="release-description">Nomes de ruas que são números (ex: 'Rua 1106') agora são <strong>exibidos corretamente no aplicativo</strong>.</p>
+                    <div class="release-footer"><span>#5509 | dev: @marcos-resende-contele</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Tela Branca na Captura de Foto</h2>
+                    <p class="release-description">Resolvido problema onde a <strong>tela ficava esbranquiçada</strong> após capturar uma foto em formulários no aplicativo.</p>
+                    <div class="release-footer"><span>#5474 | dev: @marcos-resende-contele</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Travamento na Tela da Câmera</h2>
+                    <p class="release-description">Impedimos que <strong>cliques múltiplos e rápidos</strong> no ícone da câmera travem o usuário na tela de captura.</p>
+                    <div class="release-footer"><span>#5439 | dev: @marcos-resende-contele</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Formulários Vinculados à Visita</h2>
+                    <p class="release-description">Ajustada lógica de exibição para que formulários apareçam no app, eliminando a mensagem de <strong>'não há formulários'</strong>.</p>
+                    <div class="release-footer"><span>#5403 | dev: @Idevilson</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Campos Obrigatórios em Formulários</h2>
+                    <p class="release-description">Solucionado erro que <strong>impedia a conclusão de visitas</strong> mesmo com campos obrigatórios preenchidos.</p>
+                    <div class="release-footer"><span>#5414 | dev: @Idevilson</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Sincronização de Exclusão de Fotos</h2>
+                    <p class="release-description">Fotos excluídas na web agora são <strong>sincronizadas e removidas</strong> corretamente do aplicativo do colaborador.</p>
+                    <div class="release-footer"><span>#5468 | dev: @marquis-alexander</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Cadastro de Locais via App</h2>
+                    <p class="release-description">Corrigida alteração de geoposição ao cadastrar manualmente, garantindo a <strong>precisão do endereço salvo</strong>.</p>
+                    <div class="release-footer"><span>#5425 | dev: @marquis-alexander</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Aprovação de Reembolso Avulso</h2>
+                    <p class="release-description">O status no app agora aguarda confirmação do sistema, refletindo o <strong>estado real da solicitação</strong>.</p>
+                    <div class="release-footer"><span>#5191 | dev: @marcos-resende-contele</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Endpoint de Otimização de Rotas</h2>
+                    <p class="release-description">Ajustado para considerar campos nulos, garantindo o funcionamento do <strong>cálculo de rotas</strong>.</p>
+                    <div class="release-footer"><span>#5556 | dev: @NataliaCristine</span><span>26/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Remoção de Banners Antigos</h2>
+                    <p class="release-description">Limpeza de interface com a remoção de <strong>banners de avisos obsoletos</strong> e irrelevantes.</p>
+                    <div class="release-footer"><span>#5565 | dev: @vitor-manoel</span><span>27/01/2026</span></div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-correcao">Correção</span></div>
+                    <h2 class="release-title">Formulários em Visitas Recorrentes</h2>
+                    <p class="release-description">Garantido que o vínculo de formulários seja exibido corretamente em <strong>atividades de campo recorrentes</strong>.</p>
+                    <div class="release-footer"><span>#5397 | dev: @vitor-manoel</span><span>28/01/2026</span></div>
+                </div>
+
+                <div class="slide transition-part">
+                    <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Parte 2</h1>
+                    <p style="font-size: 1.8rem; opacity: 0.9;">Sustentação e Performance</p>
+                    <div style="margin-top: 30px; padding: 10px 20px; background: rgba(0,0,0,0.2); border-radius: 4px; font-size: 1rem;">
+                        Consolidado Contele Teams
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-metric">Métricas Semanais</span></div>
+                    <h2 class="release-title">Consolidado Semanal (Teams)</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">38</div>
+                            <div class="metric-label">Em Desenvolvimento</div>
+                        </div>
+                        <div class="metric-card" style="border-top-color: var(--secondary-blue);">
+                            <div class="metric-value">56</div>
+                            <div class="metric-label">Abertos na Semana</div>
+                        </div>
+                        <div class="metric-card" style="border-top-color: var(--danger-red);">
+                            <div class="metric-value">19</div>
+                            <div class="metric-label">Prioridade Alta</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.1rem; color: #666; font-style: italic;">Dados acumulados de 22/01 a 28/01/2026 (Exclusivo Teams).</p>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-metric">Evolução</span></div>
+                    <h2 class="release-title">Evolução de Tickets Abertos (Teams)</h2>
+                    <div class="chart-container">
+                        <svg class="chart-svg" viewBox="0 0 1000 500">
+                            <line x1="100" y1="420" x2="900" y2="420" class="chart-baseline" />
+                            <path class="chart-line" d="M 150 100 L 325 306 L 500 333 L 675 320 L 850 320" />
+                            <circle class="chart-point" cx="150" cy="100" r="12" /> <text x="150" y="70" text-anchor="middle" class="chart-value-text">24</text>
+                            <circle class="chart-point" cx="325" cy="306" r="12" /> <text x="325" y="276" text-anchor="middle" class="chart-value-text">09</text>
+                            <circle class="chart-point" cx="500" cy="333" r="12" /> <text x="500" y="303" text-anchor="middle" class="chart-value-text">07</text>
+                            <circle class="chart-point" cx="675" cy="320" r="12" /> <text x="675" y="290" text-anchor="middle" class="chart-value-text">08</text>
+                            <circle class="chart-point" cx="850" cy="320" r="12" /> <text x="850" y="290" text-anchor="middle" class="chart-value-text">08</text>
+                            
+                            <text x="150" y="460" text-anchor="middle" class="chart-label-text">22/01 (Qui)</text>
+                            <text x="325" y="460" text-anchor="middle" class="chart-label-text">23/01 (Sex)</text>
+                            <text x="500" y="460" text-anchor="middle" class="chart-label-text">26/01 (Seg)</text>
+                            <text x="675" y="460" text-anchor="middle" class="chart-label-text">27/01 (Ter)</text>
+                            <text x="850" y="460" text-anchor="middle" class="chart-label-text">28/01 (Qua)</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-alert">Atenção Operacional</span></div>
+                    <h2 class="release-title">Padrões de Suporte Observados</h2>
+                    <p class="release-description"><strong>Casos críticos da semana:</strong></p>
+                    <ul style="margin-top: 20px; font-size: 1.2rem; line-height: 2; list-style: none;">
+                        <li>⚠️ <strong>Sincronização:</strong> Tickets sobre visitas que não constam no aplicativo.</li>
+                        <li>⚠️ <strong>Cadastro de Locais:</strong> Erros na geoposição automática em dispositivos Android.</li>
+                        <li>💡 <strong>Como lidar:</strong> Documentar obrigatoriamente o <strong>ID do técnico</strong> e o <strong>Modelo do Dispositivo</strong> para análise imediata de logs.</li>
+                    </ul>
+                </div>
+
+                <div class="slide">
+                    <div class="tag-container"><span class="type-tag tag-alert">Alerta Crítico</span></div>
+                    <h2 class="release-title" style="color: var(--danger-red);">Perda de Check-in/out e Login</h2>
+                    <p class="release-description"><strong>Padrão Principal:</strong> Identificada recorrência crítica na perda de dados de jornada e erros de acesso no App.</p>
+                    <div class="status-box">
+                        <strong>📢 Orientação para a Equipe:</strong><br>
+                        Este é o maior risco operacional atual. Ao atender clientes:
+                        <ul style="margin-left: 20px; margin-top: 15px;">
+                            <li>Confirmar se o aplicativo está na <strong>versão mais recente</strong>.</li>
+                            <li>Informar que a correção de Check-in/out é a <strong>prioridade número 1</strong> da equipe de Tecnologia.</li>
+                        </ul>
+                    </div>
+                    <div class="release-footer"><span>Impacto: 19 Tickets de Alta Prioridade</span><span>Status: Em Desenvolvimento</span></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-container">
+        <button class="btn" onclick="moveSlide(-1)">Anterior</button>
+        <div id="counter" class="counter">1 / 27</div>
+        <button class="btn" onclick="moveSlide(1)">Próximo</button>
+    </div>
+
+    <script>
+        let currentIdx = 0;
+        const slider = document.getElementById('slider');
+        const counter = document.getElementById('counter');
+        const slides = document.querySelectorAll('.slide');
+
+        function updateUI() {
+            slider.style.transform = `translateX(-${currentIdx * 100}%)`;
+            counter.innerText = `${currentIdx + 1} / ${slides.length}`;
+        }
+
+        function moveSlide(direction) {
+            currentIdx = (currentIdx + direction + slides.length) % slides.length;
+            updateUI();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") moveSlide(1);
+            if (e.key === "ArrowLeft") moveSlide(-1);
+        });
+
+        updateUI();
+    </script>
+</body>
+</html>
